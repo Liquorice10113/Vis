@@ -23,24 +23,44 @@
 		<div class="select" id="select_users_analysis" onclick="switch_to_user()">用户</div>
 		<div class="filter_view">
 			<div id="score_filter" class="filter">
-				<font style="font-size: 25px; color: #333333;">评分</font>
-				<input type="text" class="js-range-slider" id="slider_score" />
+				<font style="font-size: 20px; color: #333333;">评分</font>
+				<input type="text" class="js-range-slider slider_post" id="slider_score" />
 			</div>
 			<div id="price_filter" class="filter">
-				<font style="font-size: 25px; color: #333333;">价格</font>
-				<input type="text" class="js-range-slider" id="slider_price" />
+				<font style="font-size: 20px; color: #333333;">价格</font>
+				<input type="text" class="js-range-slider slider_post" id="slider_price" />
 			</div>
 			<div id="clock_filter" class="filter">
-				<font style="font-size: 25px; color: #333333;">营业时间</font>
-				<input type="text" class="js-range-slider" id="slider_clock" />
+				<font style="font-size: 20px; color: #333333;">营业时间</font>
+				<input type="text" class="js-range-slider slider_post" id="slider_clock" />
 			</div>
 			<div id="pop_filter" class="filter">
-				<font style="font-size: 25px; color: #333333;">评论数量</font>
-				<input type="text" class="js-range-slider" id="slider_threshold" />
+				<font style="font-size: 20px; color: #333333;">评论数量</font>
+				<input type="text" class="js-range-slider slider_post" id="slider_threshold" />
 			</div>
+			<div style="left: 30px;top: 20px;position: relative;width: 300px;height: 20px;">
+				<input type="text" id="ftxt" />
+				<div id="uip_btn" onclick="user_input()">OK</div>
+			</div>
+			<div id="labels_container">
+				<div class="label" onclick="filter_kw('火锅')">火锅</div>
+				<div class="label" onclick="filter_kw('烧烤')">烧烤</div>
+				<div class="label" onclick="filter_kw('酒店')">酒店</div>
+				<div class="label" onclick="filter_kw('蛋糕')">蛋糕</div>
+				<div class="label" onclick="filter_kw('川菜')">川菜</div>
+				<div class="label" onclick="filter_kw('面')">面</div>
+				<div class="label" onclick="filter_kw('粉')">粉</div>
+				<div class="label" onclick="filter_kw('干锅')">干锅</div>
+				<div class="label" onclick="filter_kw('烤肉')">烤肉</div>
+				<div class="label" onclick="filter_kw('鱼')">鱼</div>
+				<div class="label" onclick="filter_kw('自助')">自助</div>
+				
+			</div>
+			
 		</div>
 		<div class="filter_view" id="user_filter_view" >
-			
+				Cluster
+				
 		</div>
 		<div id="word_cloud_view">
 			<img src="/wordcloud" id="wc_img" />
@@ -77,7 +97,7 @@
 		</div>
 		<div class="detail_view_border" id="user_detail_view_border" onclick="bring_view_2top('user')">
 			<div id="u_detail_view">
-				
+				Henlo
 			</div>
 			<div class="dv_close_btn" onclick="close_user_detail()">×</div>
 			</div>

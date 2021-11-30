@@ -32,7 +32,7 @@ class DataProcess():
         self.users = Users(self.comments)
     def get_all_shops(self,filter_):
         results = []
-        sff,sft,pff,pft,cf,ct,uid,tr = filter_
+        sff,sft,pff,pft,cf,ct,uid,tr,kw = filter_
 
         if uid:
             poiid_li = self.shops.hash_table.keys()
@@ -44,6 +44,12 @@ class DataProcess():
             openTime = shop[5]
             avgScore = shop[2]
             avgPrice = shop[10]
+            shop_name = shop[1] 
+            shop_add = shop[2]
+            shop_coo = (shop[8], shop[9])
+            if kw:
+                if not kw in shop_name:
+                    continue
             if not uid:
                 if not poiid in self.comments.poiid_lookup:
                     continue
@@ -69,9 +75,6 @@ class DataProcess():
                     avgPrice = 5.0
                 if avgPrice<pff or avgPrice>pft:
                     continue
-            shop_name = shop[1] 
-            shop_add = shop[2]
-            shop_coo = (shop[8], shop[9])
             results.append([ poiid,shop_name,shop_add,shop_coo ])
         return results
     def get_shop_detail(self,poiid):

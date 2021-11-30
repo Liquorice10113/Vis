@@ -191,12 +191,15 @@ body {
     right: 0;
 }
 
-.filter {
+.filter{
     position: relative;
-    height: 100px;
+    height: 80px;
     width: 330px;
     left: 20px;
-    top: 20px;
+    top: 0px;
+}
+.slider_post{
+	height: 50px;
 }
 .info_box{
     position: relative;
@@ -268,4 +271,50 @@ body {
     z-index: 2;
     height: 800px;
     top: 80px;
+}
+#ftxt{
+	position: absolute;
+	width: 100px;
+	height: 20px;
+}
+#labels_container{
+	width: 300px;
+	height: 60px;
+	background-color: #f0f0f0;
+	left: 30px;
+	position: relative;
+	float: left;
+	top: 30px;
+	border-radius: 4px;
+	overflow-y: scroll;
+}
+.label{
+	position: relative;
+	padding-right: 5px;
+	padding-left: 5px;
+	float: left;
+	font-size: 15px;
+	text-align: center;
+	margin: 4px;
+	width: auto;
+	max-width: 60px;
+	height: 20px;
+	background-color: white;
+	border-radius: 3px;
+	box-shadow: #999 1px 1px 4px;
+}
+.label:hover{
+	color: white;
+	background-color: dodgerblue;
+}
+#uip_btn{
+	color: white;
+	background-color: dodgerblue;
+	font-size: 10px;
+	width: 30px;
+	height: 20px;
+	position: absolute;
+	left: 103px;
+	text-align: center;
+	border-radius: 2px;
 }

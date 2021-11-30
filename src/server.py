@@ -21,7 +21,8 @@ def query():
         ct = float(request.args.get("ct"))
         uid = request.args.get("uid")
         tr = int(request.args.get("tr"))
-        return jsonify( dp.get_all_shops( filter_=[sff,sft,pff,pft,cf,ct,uid,tr]) )
+        kw = request.args.get("kw")
+        return jsonify( dp.get_all_shops( filter_=[sff,sft,pff,pft,cf,ct,uid,tr,kw]) )
     if request.args.get("type") == "shop_detail":
         poiid = request.args.get("poiid")
         return jsonify( dp.get_shop_detail(poiid) )

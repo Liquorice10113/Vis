@@ -4,7 +4,7 @@ function recv(type="scatter")
     if(type=="scatter")
     {
         $.getJSON(
-            "/query?type=all_shops&sff="+score_filter_from+"&sft="+score_filter_to+"&pff="+price_filter_from+"&pft="+price_filter_to+"&cf="+clock_from+"&ct="+clock_to+"&tr="+pop_threshold,
+            "/query?type=all_shops&sff="+score_filter_from+"&sft="+score_filter_to+"&pff="+price_filter_from+"&pft="+price_filter_to+"&cf="+clock_from+"&ct="+clock_to+"&tr="+pop_threshold+"&kw="+keyword,
             function(data)
             {
                 option.series[0].data = []
@@ -22,7 +22,7 @@ function recv(type="scatter")
     if(type=="heatmap")
     {
         $.getJSON(
-            "/query?type=all_shops&sff="+score_filter_from+"&sft="+score_filter_to+"&pff="+price_filter_from+"&pft="+price_filter_to+"&cf="+clock_from+"&ct="+clock_to+"&tr="+pop_threshold,
+            "/query?type=all_shops&sff="+score_filter_from+"&sft="+score_filter_to+"&pff="+price_filter_from+"&pft="+price_filter_to+"&cf="+clock_from+"&ct="+clock_to+"&tr="+pop_threshold+"&kw="+keyword,
             function(data)
             {
                 option.series[0].data = []
@@ -197,6 +197,32 @@ function close_user_detail()
 {
     $("#user_detail_view_border").css("right","-550px")
 }
+function user_input()
+{
+    kw = $("#ftxt").val()
+    console.log(kw)
+    $("#labels_container").append("<div class=\"label\" onclick=\"filter_kw('" + kw +"')\">"  +kw+ "</div>")
+    filter_kw(kw)
+}
+function cancel_input()
+{
+    $("#uip_btn").css("background-color","dodgerblue")
+    $("#uip_btn").text("OK")
+    $("#uip_btn").attr("onclick","user_input()")
+    $("#ftxt").val("")
+    keyword = ""
+    recv()
+}
+function filter_kw(kw)
+{
+    $("#uip_btn").css("background-color","red")
+    $("#uip_btn").text("清除")
+    $("#uip_btn").attr("onclick","cancel_input()")
+    $("#ftxt").val(kw)
+    keyword = kw
+    recv()
+}
+
 
 $("#slider_score").ionRangeSlider({
     type: "double",
@@ -280,6 +306,7 @@ var meals_flag = 0;
 var cname = "test";
 var cid = "0";
 var cuid = "0"
+var keyword = ""
 
 var chartDom = document.getElementById('map_view');
 var myChart = echarts.init(chartDom);
