@@ -16,6 +16,16 @@ body {
     text-align: center;
 
 }
+#left_cover{
+	position: fixed;
+	height: 945px;
+	width: 390px;
+	top: 10px;
+	left: 10px;
+	border-radius: 10px;
+    box-shadow: #999 1px 1px 4px;
+	background-color: rgba(255,255,255,0.7);
+}
 
 .select {
     user-select: none;
@@ -74,6 +84,7 @@ body {
 #user_filter_view
 {
     display: none;
+	box-shadow: none;
 }
 
 #word_cloud_view {
@@ -90,10 +101,12 @@ body {
 
 #map_view_border {
     position: fixed;
-    height: 920px;
-    width: 1480px;
-    top: 20px;
-    left: 410px;
+    /* height: 920px; */
+	height: 1080px;
+	width: 1920px;
+    /* width: 1480px; */
+    /* top: 20px; */
+    /* left: 410px; */
     border-radius: 10px;
     box-shadow: #666 2px 2px 4px;
     overflow: hidden;
@@ -278,10 +291,10 @@ body {
 	height: 20px;
 }
 #labels_container{
-	width: 300px;
+	width: 340px;
 	height: 60px;
 	background-color: #f0f0f0;
-	left: 30px;
+	left: 15px;
 	position: relative;
 	float: left;
 	top: 30px;
@@ -307,6 +320,12 @@ body {
 	color: white;
 	background-color: dodgerblue;
 }
+
+.label_cus{
+	background-color: cadetblue;
+	color: white;
+}
+
 #uip_btn{
 	color: white;
 	background-color: dodgerblue;
@@ -317,4 +336,62 @@ body {
 	left: 103px;
 	text-align: center;
 	border-radius: 2px;
+}
+#cluster_btn_container{
+	position: relative;
+	top: 10px;
+	left: 15px;
+	width: 340px;
+	height: 170px;
+	border-radius: 4px;
+	background-color: #f0f0f0;
+}
+.cluster_btn{
+	position: relative;
+	float: left;
+	margin: 5px;
+	width: 45px;
+	height: 45px;
+	background-color: #fff;
+	border-radius: 25px;
+	box-shadow: #999 1px 1px 4px;
+	line-height: 45px;
+	text-align: center;
+	font-size: 25px;
+	color: #666;
+}
+.cluster_btn:hover{
+	transform: scale(1.1);
+}
+#user_list{
+	position: relative;
+	top: 30px;
+	left: 15px;
+	width: 340px;
+	height: 170px;
+	border-radius: 4px;
+	background-color: #f0f0f0;
+}
+.user_label{
+	position: relative;
+	padding-right: 5px;
+	padding-left: 5px;
+	float: left;
+	font-size: 15px;
+	text-align: center;
+	margin: 4px;
+	width: auto;
+	height: 20px;
+	background-color: white;
+	border-radius: 3px;
+	box-shadow: #999 1px 1px 4px;
+}
+.user_label:hover{
+	background-color: #1E90FF;
+	color: white;
+}
+#user_promote div{
+	position: absolute;
+	top: 0;
+	left: 45px;
 }

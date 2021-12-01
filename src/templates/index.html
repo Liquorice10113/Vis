@@ -17,7 +17,12 @@
 		<link rel="stylesheet" href="/static/ion.rangeSlider.css" />
 	</head>
 	<body>
+		<div id="map_view_border">
+			<div id="map_view"></div>
+		</div>
+		<div id="left_cover"></div>
 		<div id="title">Restaurants in Mianyang</div>
+
 		<div class="select" id="select_shops_analysis" onclick="switch_to_scatter()">餐馆</div>
 		<div class="select" id="select_shops_heat" onclick="switch_to_heat()">热</div>
 		<div class="select" id="select_users_analysis" onclick="switch_to_user()">用户</div>
@@ -38,7 +43,7 @@
 				<font style="font-size: 20px; color: #333333;">评论数量</font>
 				<input type="text" class="js-range-slider slider_post" id="slider_threshold" />
 			</div>
-			<div style="left: 30px;top: 20px;position: relative;width: 300px;height: 20px;">
+			<div style="left: 20px;top: 20px;position: relative;width: 300px;height: 20px;">
 				<input type="text" id="ftxt" />
 				<div id="uip_btn" onclick="user_input()">OK</div>
 			</div>
@@ -59,16 +64,40 @@
 			
 		</div>
 		<div class="filter_view" id="user_filter_view" >
-				Cluster
-				
+			<div id="cluster_promote" style="position: relative;left: 20px;top: 10px;">Clusters</div>
+			<div id="cluster_btn_container">
+				<div class="cluster_btn">1</div>
+				<div class="cluster_btn">2</div>
+				<div class="cluster_btn">3</div>
+				<div class="cluster_btn">4</div>
+				<div class="cluster_btn">5</div>
+				<div class="cluster_btn">6</div>
+				<div class="cluster_btn">7</div>
+				<div class="cluster_btn">8</div>
+				<div class="cluster_btn">9</div>
+				<div class="cluster_btn">10</div>
+				<div class="cluster_btn">11</div>
+				<div class="cluster_btn">12</div>
+				<div class="cluster_btn">13</div>
+				<div class="cluster_btn">14</div>
+				<div class="cluster_btn">15</div>
+				<div class="cluster_btn">16</div>
+			</div>
+			<div id="user_promote" style="position: relative;left: 20px;top: 20px;height: 20px">User: <div class="user_label">typical_1</div> </div>
+			<div id="user_list">
+				<div class="user_label">typical_1</div>
+				<div class="user_label">7867967</div>
+				<div class="user_label">67967</div>
+				<div class="user_label">6786767</div>
+				<div class="user_label">6786967</div>
+				<div class="user_label">67867</div>
+			</div>
 		</div>
 		<div id="word_cloud_view">
 			<img src="/wordcloud" id="wc_img" />
 			<div id="meal_only" onclick="meals_only()">菜品相关</div>
 		</div>
-		<div id="map_view_border">
-			<div id="map_view"></div>
-		</div>
+
 		<div class="detail_view_border" id="shop_detail_view_border" onclick="bring_view_2top('shop')">
 			<div id="detail_view">
 				<div id="text_title">ShopTitle</div>

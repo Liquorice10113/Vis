@@ -20,5 +20,8 @@ python3 server.py
 
 ![wip](res/wip.png)
 
+
+![wip2](res/wip2.png)
+
 使用到的组件：
 [Ion.RangeSlider](https://github.com/IonDen/ion.rangeSlider)

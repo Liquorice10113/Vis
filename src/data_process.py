@@ -9,6 +9,10 @@ import re
 import time
 
 def wordcloudgen(dp,id_="0",type_="0",meal_only=False):
+    '''
+    生成词云
+    return: BytesIO对象模拟的二进制图片文件
+    '''
     img = io.BytesIO()
     font = "Deng.ttf"
     if type_=="shop":
@@ -30,7 +34,16 @@ class DataProcess():
         self.shops = ShopDetails()
         self.comments = Comments()
         self.users = Users(self.comments)
+
+        self.cluster_util = ClusterUtil()
+        self.cluster_util.load_data(self.users.hash_table,10)
+        self.cluster_util.apply_k_means(16)
     def get_all_shops(self,filter_):
+        '''
+        所有商店 
+        filter_:过滤参数
+        return: [ [ poiid,shop_name,shop_add,shop_coo ], ... ]
+        '''
         results = []
         sff,sft,pff,pft,cf,ct,uid,tr,kw = filter_
 
@@ -78,6 +91,10 @@ class DataProcess():
             results.append([ poiid,shop_name,shop_add,shop_coo ])
         return results
     def get_shop_detail(self,poiid):
+        '''
+        单个商店信息
+        return: { "name :  name, ... , "comments": [ {"xxx":xxx, ...}, ... ], ... }
+        '''
         result = dict()
         shop_data = self.shops.hash_table[poiid]
         result['name'] = shop_data[1]
@@ -117,8 +134,8 @@ class DataLoader():
         self.hash_table = dict()
 
     def load(self,fn,key_col):
-        '''读取csv文件
-        fn:文件名
+        '''
+        读取csv文件
         key_col:索引所在列
         '''
         f_handle = open(fn,"r")
@@ -134,7 +151,11 @@ class DataLoader():
         print("Hash Table memory usage:",int(sys.getsizeof(self.hash_table)/1024),"kb.")
 
 class ShopDetails(DataLoader):
-    '''读取商店信息文件 字段:poiid,name,avgScore,address,phone,openTime,extraInfos,hasFoodSafeInfo,longitude,latitude,avgPrice,brandId ,brandName'''
+    '''
+    读取商店信息文件 
+    字段:poiid,name,avgScore,address,phone,openTime,extraInfos,hasFoodSafeInfo,longitude,latitude,avgPrice,brandId,brandName
+             0       1        2          3         4         5             6               7                8          9        10         11           12 
+    '''
     def __init__(self,*args,**kwargs):
         super(__class__,self).__init__(*args,**kwargs)
         self.load("shop_details.csv",0)
@@ -152,7 +173,11 @@ class ShopDetails(DataLoader):
                 self.hash_table[poiid][5] = (open_time,close_time)
 
 class Comments(DataLoader):
-    '''读取评论信息文件 字段:userName,avgPrice,comment,picUrls,commentTime,zanCnt,userLevel,userId,star,reviewId,anonymous,poiId'''
+    '''
+    读取评论信息文件 
+    字段:userName,avgPrice,comment,picUrls,commentTime,zanCnt,userLevel,userId,star,reviewId,anonymous,poiId
+             0            1            2           3         4                 5        6            7     8      9          10           11       
+    '''
     def __init__(self,*args,**kwargs):
         super(__class__,self).__init__(*args,**kwargs)
         self.load("shop_comments.csv",9)
@@ -199,6 +224,7 @@ class Users():
             self.hash_table[uid]["time_range"][timeR] += 1
 
 def normalize(arr):
+    '''归一化'''
     arr = np.array(arr)
     arr= arr/max(arr)
     return arr
@@ -207,21 +233,38 @@ class ClusterUtil():
     def __init__(self) -> None:
         self.clusters = []
         self.data = []
+        self.k = 8
+        self.look_up = dict()
+        self.uid_index = []
     def load_data(self,users,thr=10):
-        uid_index = []
+        '''按各个用户拼接用于kmeans的特征'''
         data = []
         for uid in users:
             if len(users[uid]["comments"]) <thr:
                 continue
-            uid_index.append(uid)
+            self.uid_index.append(uid)
             udata =  normalize( users[uid]["price_range"] )
             udata = np.append( normalize( users[uid]["price_range"] )*2 , normalize( users[uid]["time_range"] )*1 )
             data.append( udata )
         self.data = np.array(data)
 
     def apply_k_means(self,k):
+        self.k = k
+        print("Applying K-Means clustering with K value",k,'...')
         kmeans = KMeans(n_clusters=k, random_state=0).fit(self.data)
-        print(kmeans.labels_[:100])
+
+        self.clusters = [ [] for _ in range(k) ]
+        for uid,cid in zip(self.uid_index,kmeans.labels_):
+            self.clusters[cid].append(uid)
+        
+        self.clusters.sort( key = lambda x: -len(x) )
+
+        for cid,cluster in  enumerate(self.clusters):
+            print( "Cluster",cid,len(cluster) )
+            for uid in cluster:
+                self.look_up[uid] = cid
+        print("Done.")
+
 
 TEST_FLAG = True
 

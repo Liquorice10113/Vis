@@ -201,7 +201,7 @@ function user_input()
 {
     kw = $("#ftxt").val()
     console.log(kw)
-    $("#labels_container").append("<div class=\"label\" onclick=\"filter_kw('" + kw +"')\">"  +kw+ "</div>")
+    $("#labels_container").append("<div class=\"label label_cus\" onclick=\"filter_kw('" + kw +"')\">"  +kw+ "</div>")
     filter_kw(kw)
 }
 function cancel_input()
@@ -246,7 +246,7 @@ $("#slider_price").ionRangeSlider({
     min: 5,
     max: 100,
     from: 10,
-    to: 40,
+    to: 60,
     step: 1,
     grid: true,
     onFinish: function(data)
@@ -296,7 +296,7 @@ $("#slider_threshold").ionRangeSlider({
 var score_filter_from = 1
 var score_filter_to = 5
 var price_filter_from = 10
-var price_filter_to = 40
+var price_filter_to = 60
 var clock_from = 6
 var clock_to = 24
 var current_type = "scatter"
