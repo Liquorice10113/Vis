@@ -1,2 +1,3 @@
 *.csv
 *.docx
+src/__pycache__/
