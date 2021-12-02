@@ -23,7 +23,7 @@ python3 server.py
 
 ![wip2](res/wip2.png)
 
-wip
+开发中
 
 使用到的组件：
 [Ion.RangeSlider](https://github.com/IonDen/ion.rangeSlider)
