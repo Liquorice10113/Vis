@@ -59,31 +59,20 @@
 				<div class="label" onclick="filter_kw('烤肉')">烤肉</div>
 				<div class="label" onclick="filter_kw('鱼')">鱼</div>
 				<div class="label" onclick="filter_kw('自助')">自助</div>
-				
+
 			</div>
-			
+
 		</div>
-		<div class="filter_view" id="user_filter_view" >
+		<div class="filter_view" id="user_filter_view">
 			<div id="cluster_promote" style="position: relative;left: 20px;top: 10px;">Clusters</div>
-			<div id="cluster_btn_container">
-				<div class="cluster_btn">1</div>
-				<div class="cluster_btn">2</div>
-				<div class="cluster_btn">3</div>
-				<div class="cluster_btn">4</div>
-				<div class="cluster_btn">5</div>
-				<div class="cluster_btn">6</div>
-				<div class="cluster_btn">7</div>
-				<div class="cluster_btn">8</div>
-				<div class="cluster_btn">9</div>
-				<div class="cluster_btn">10</div>
-				<div class="cluster_btn">11</div>
-				<div class="cluster_btn">12</div>
-				<div class="cluster_btn">13</div>
-				<div class="cluster_btn">14</div>
-				<div class="cluster_btn">15</div>
-				<div class="cluster_btn">16</div>
+			<div id="cluster_btn_container"></div>
+			<script>
+			for(i=0;i<16;i++) 
+				$("#cluster_btn_container").append($('<div class="cluster_btn" onclick="select_cluster('+i+')">'+i+'</div>'));
+			</script>
+			<div id="user_promote" style="position: relative;left: 20px;top: 20px;height: 20px">User: <div
+					class="user_label">typical_1</div>
 			</div>
-			<div id="user_promote" style="position: relative;left: 20px;top: 20px;height: 20px">User: <div class="user_label">typical_1</div> </div>
 			<div id="user_list">
 				<div class="user_label">typical_1</div>
 				<div class="user_label">7867967</div>
@@ -110,10 +99,12 @@
 				</div>
 				<div id="avgp">均价1.5</div>
 				<div class="info_box">
-					<font>地址</font><div id="add_txt" style="float: left;"></div>
+					<font>地址</font>
+					<div id="add_txt" style="float: left;"></div>
 				</div>
 				<div class="info_box">
-					<font>电话</font><div id="tel_txt"></div>
+					<font>电话</font>
+					<div id="tel_txt"></div>
 				</div>
 				<div id="star_pie"></div>
 				<div id="comments_view" class="info_box">
@@ -126,10 +117,20 @@
 		</div>
 		<div class="detail_view_border" id="user_detail_view_border" onclick="bring_view_2top('user')">
 			<div id="u_detail_view">
-				Henlo
+				<div id="u_text_title">ID:12345676</div>
+				<div id="u_subtxt" style="position: absolute;font-size: 17px;color: #333333;right:10px;top: 5px;">In cluster 1, 3333 comments. </div>
+				<div id="price_dist"></div>
+				<div id="time_dist"></div>
+				<div id="u_comments_view" class="info_box">
+					<div class="info_box comment">dfhfdghsdfxh</div>
+					<div class="info_box comment">fghdfgjhfghdfxgh</div>
+					<div class="info_box comment">fghdfghdfgh</div>
+				</div>
+				
 			</div>
 			<div class="dv_close_btn" onclick="close_user_detail()">×</div>
-			</div>
-		<script src="/static/front.js"></script>
+		</div>
+		<script src="/static/front_def.js"></script>
+		<script src="/static/front_exe.js"></script>
 	</body>
 </html>
