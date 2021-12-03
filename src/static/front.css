@@ -45,11 +45,8 @@ body {
 }
 
 .select_selected {
-	border-width: 2x;
-	height: 48px;
-	width: 97x;
-	border-color: #da4453;
-	border-style: solid;
+	background-color: dodgerblue;
+	color: white;
 }
 
 #select_shops_analysis {
@@ -436,8 +433,9 @@ body {
 	text-align: center;
 	margin: 4px;
 	width: auto;
-	height: 20px;
+	height: 22px;
 	background-color: white;
+	color: #333;
 	border-radius: 3px;
 	box-shadow: #999 1px 1px 4px;
 }

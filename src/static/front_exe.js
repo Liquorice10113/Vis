@@ -134,7 +134,7 @@ var barChartP = echarts.init(barChartDomP);
 var barOptionP;
 barOptionP = {
 	title: {
-		text: "该用户价格区间分布"
+		text: "该用户消费价格区间分布"
 	},
 	xAxis: {
 		type: 'category',
