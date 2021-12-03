@@ -9,8 +9,9 @@ var pop_threshold = 20
 
 var meals_flag = 0;
 var cname = "test";
-var cid = "0";
+var cid = "";
 var cuid = ""
+var sid = "0"
 var keyword = ""
 
 var chartDom = document.getElementById('map_view');
@@ -145,6 +146,9 @@ barOptionP = {
 	series: [{
 		data: [120, 200, 150, 80, 70],
 		type: 'bar',
+		itemStyle:{
+			color:"dodgerblue"
+		},
 		showBackground: true,
 		backgroundStyle: {
 			color: 'rgba(180, 180, 180, 0.2)'
@@ -174,6 +178,9 @@ barOptionT = {
 	series: [{
 		data: [120, 200, 150, 80, 70, 1, 1, 1, 1, 1, 1, 1],
 		type: 'bar',
+		itemStyle:{
+			color:"dodgerblue"
+		},
 		showBackground: true,
 		backgroundStyle: {
 			color: 'rgba(180, 180, 180, 0.2)'

@@ -29,10 +29,18 @@ def query():
         return jsonify(dp.get_shop_detail(poiid))
     elif request.args.get("type") == "user_detail":
         uid = request.args.get("uid")
-        return jsonify(dp.get_user_detail(uid))
+        if uid.startswith("typical_"):
+            cluster_id = uid[8:]
+            return jsonify(dp.typical(cluster_id))
+        else:
+            return jsonify(dp.get_user_detail(uid))
     elif request.args.get("type") == "clusters":
         cluster_id = request.args.get("cid")
-        users = dp.cluster_util.clusters[int(cluster_id)]
+        users = dp.cluster_util.clusters[int(cluster_id)][0]
+        return jsonify(users)
+    elif request.args.get("type") == "user_typical":
+        cluster_id = request.args.get("cid")
+        return jsonify(dp.typical(cluster_id))
     return "null"
 
 

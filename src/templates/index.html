@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>绵阳餐饮可视化</title>
+		<title>绵阳餐饮数据可视化</title>
 		<style>
 			* {
 				padding: 0;
@@ -21,7 +21,7 @@
 			<div id="map_view"></div>
 		</div>
 		<div id="left_cover"></div>
-		<div id="title">Restaurants in Mianyang</div>
+		<div id="title">绵阳餐饮数据可视化</div>
 
 		<div class="select" id="select_shops_analysis" onclick="switch_to_scatter()">餐馆</div>
 		<div class="select" id="select_shops_heat" onclick="switch_to_heat()">热</div>
@@ -70,17 +70,12 @@
 			for(i=0;i<16;i++) 
 				$("#cluster_btn_container").append($('<div class="cluster_btn" onclick="select_cluster('+i+')">'+i+'</div>'));
 			</script>
-			<div id="user_promote" style="position: relative;left: 20px;top: 20px;height: 20px">User: <div
-					class="user_label">typical_1</div>
+			<div id="user_promote" style="position: relative;left: 20px;top: 20px;height: 20px">User: 
+			<div class="user_label" style="left: 250px;top:-5px;" onclick="show_typical()">typical</div>
 			</div>
 			<div id="user_list">
-				<div class="user_label">typical_1</div>
-				<div class="user_label">7867967</div>
-				<div class="user_label">67967</div>
-				<div class="user_label">6786767</div>
-				<div class="user_label">6786967</div>
-				<div class="user_label">67867</div>
 			</div>
+			<div id="u_count"> Please select a cluster. </div>
 		</div>
 		<div id="word_cloud_view">
 			<img src="/wordcloud" id="wc_img" />

@@ -4,7 +4,7 @@ function recv(type = "scatter") {
 		$.getJSON(
 			"/query?type=all_shops&sff=" + score_filter_from + "&sft=" + score_filter_to + "&pff=" +
 			price_filter_from + "&pft=" + price_filter_to + "&cf=" + clock_from + "&ct=" + clock_to + "&tr=" +
-			pop_threshold + "&kw=" + keyword+"&uid="+cuid,
+			pop_threshold + "&kw=" + keyword + "&uid=" + cuid,
 			function(data) {
 				option.series[0].data = []
 				$.each(
@@ -26,7 +26,7 @@ function recv(type = "scatter") {
 		$.getJSON(
 			"/query?type=all_shops&sff=" + score_filter_from + "&sft=" + score_filter_to + "&pff=" +
 			price_filter_from + "&pft=" + price_filter_to + "&cf=" + clock_from + "&ct=" + clock_to + "&tr=" +
-			pop_threshold + "&kw=" + keyword+"&uid="+cuid,
+			pop_threshold + "&kw=" + keyword + "&uid=" + cuid,
 			function(data) {
 				option.series[0].data = []
 				$.each(
@@ -85,6 +85,7 @@ function switch_to_user() {
 	$("#select_shops_heat").attr("class", "select")
 	option.series[0].type = "scatter"
 	current_type = "user"
+	if(cuid=="typical_") cuid="";
 	recv("scatter")
 }
 
@@ -98,15 +99,15 @@ function meals_only() {
 	}
 	click_on_shop({
 		name: cname,
-		poiid: cid
+		poiid: sid
 	})
 }
 
 function click_on_shop(data) {
 	console.log(data);
 	cname = data['name']
-	cid = data['poiid']
-	show_shop_detail(cname, cid)
+	sid = data['poiid']
+	show_shop_detail(cname, sid)
 	bring_view_2top('shop')
 }
 
@@ -131,9 +132,11 @@ function show_user_detail(uid) {
 			$.each(
 				data['comments'],
 				function(idx, item) {
-					if(idx>100) return;
+					if (idx > 100) return;
 					console.log(item)
-					node_str = '<div class="info_box comment" onclick="show_shop_detail(\''+item[2]+'\', \''+item[1]+'\')\" >'+item[0]+"<div class='s_l_txt'>"+ item[2] +'</div></div>'
+					node_str = '<div class="info_box comment" onclick="show_shop_detail(\'' + item[2] +
+						'\', \'' + item[1] + '\')\" >' + item[0] + "<div class='s_l_txt'>" + item[2] +
+						'</div></div>'
 					console.log(node_str)
 					$("#u_comments_view").append(node_str)
 				}
@@ -142,20 +145,26 @@ function show_user_detail(uid) {
 			barChartP.setOption(barOptionP)
 			barOptionT.series[0].data = data['time_dist']
 			barChartT.setOption(barOptionT)
+			
+			if(data['cid']!='未知'){
+				select_cluster(data['cid'])
+			}else{
+				unselect_cluser()
+			}
 		}
 	)
 	$("#user_detail_view_border").css("right", "100px")
 	setTimeout(function() {
 		bring_view_2top('user')
 	}, 1)
-	
+
 	cuid = uid
 	switch_to_user()
 }
 
 function show_shop_detail(name, poiid) {
-	
-	$("#wc_img").attr("src", '/wordcloud?id=' + cid + "&seed=" + Math.random() + "&type=shop&meal_only=" + meals_flag)
+
+	$("#wc_img").attr("src", '/wordcloud?id=' + sid + "&seed=" + Math.random() + "&type=shop&meal_only=" + meals_flag)
 	$.getJSON(
 		"/query?type=shop_detail&poiid=" + poiid,
 		function(data) {
@@ -198,7 +207,7 @@ function show_shop_detail(name, poiid) {
 				}
 			]
 			pieChart.setOption(pie_option);
-			
+
 
 			$("#comments_view").html("")
 			console.log(data['comments'])
@@ -227,7 +236,7 @@ function close_shop_detail() {
 }
 
 function close_user_detail() {
-	//$("#user_detail_view_border").css("right", "-550px")
+	$("#user_detail_view_border").css("right", "-550px")
 }
 
 function user_input() {
@@ -255,10 +264,52 @@ function filter_kw(kw) {
 	recv()
 }
 
-function select_cluster(cid) {
-	console.log(cid)
+function select_cluster(cid_) {
+	console.log(cid_)
+	cid = cid_
+	for (i = 0; i < 16; i++) {
+		$(".cluster_btn").eq(i).css('background-color', '#fff')
+		$(".cluster_btn").eq(i).css('color', '#666')
+	}
+	$(".cluster_btn").eq(parseInt(cid)).css('background-color', 'dodgerblue')
+	$(".cluster_btn").eq(parseInt(cid)).css('color', '#fff')
+
+	$("#user_list").html("")
+	$.getJSON(
+		"/query?type=clusters&cid=" + cid,
+		function(data) {
+			$.each(
+				data,
+				function(idx, item) {
+					//console.log(option.series[0].data,"sdkfj");
+					node = $("<div class='user_label' onclick='show_user_detail(\""+item+"\")' >"+item+"</div>")
+					$("#user_list").append(node)
+				}
+			);
+				$("#u_count").text(data.length+" users in this cluster.")
+		}
+	)
 }
 
+function unselect_cluser(){
+	for (i = 0; i < 16; i++) {
+		$(".cluster_btn").eq(parseInt(i)).css('background-color', '#fff')
+		$(".cluster_btn").eq(parseInt(i)).css('color', '#666')
+	}
+	cid = ""
+	$("#user_list").html("")
+	$("#u_count").text("Please select a cluster.")
+}
+
+function show_typical(){
+	console.log(cid)
+	if(!cid){
+		alert("Select a cluster first!")
+		return
+	}
+	cuid = ""
+	show_user_detail("typical_"+cid)
+}
 
 $("#slider_score").ionRangeSlider({
 	type: "double",

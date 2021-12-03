@@ -39,7 +39,7 @@ class DataProcess():
         self.users = Users(self.comments)
 
         self.cluster_util = ClusterUtil()
-        self.cluster_util.load_data(self.users.hash_table, 10)
+        self.cluster_util.load_data(self.users.hash_table, 20)
         self.cluster_util.apply_k_means(16)
 
     def get_all_shops(self, filter_):
@@ -53,7 +53,7 @@ class DataProcess():
     
         if uid=="匿名用户":
             uid = ""
-        if uid:
+        if uid and not uid.startswith("typical_"):
             poiid_li = self.users.hash_table[uid]["shops"]
         else:
             poiid_li = self.shops.hash_table.keys()
@@ -65,7 +65,9 @@ class DataProcess():
             avgPrice = shop[10]
             shop_name = shop[1]
             shop_add = shop[2]
-            shop_coo = (shop[8], shop[9])
+            shop_coo = [float(shop[8]), float(shop[9])]
+            shop_coo[0] += 0.0065
+            shop_coo[1] += 0.0058
             if kw:
                 if not kw in shop_name:
                     continue
@@ -126,10 +128,11 @@ class DataProcess():
                 print(star)
             comment_txt = comment[2]
             comment_uid = comment[-5]
+            if not comment_txt:
+                comment_txt = '无内容'
             result['comments'] .append((comment_txt, comment_uid))
         result['comments'].sort(key=lambda x: - len(x[0]))
         result['comments'] = result['comments'][:20]
-        result['comments'] = [i for i in result['comments'] if i[0]]
         # print(result['comments'])
         return result
     def get_user_detail(self,uid):
@@ -149,9 +152,19 @@ class DataProcess():
                 continue
             comment_txt = comment[2]
             comment_poiid = comment[-1]
+            if not comment_txt:
+                comment_txt = '无内容'
             comment_shop_name = self.shops.hash_table[comment_poiid][1]
             result["comments"].append( ( comment_txt, comment_poiid, comment_shop_name ) )
-        result['comments'] = [i for i in result['comments'] if i[0]]
+        result['comments'].sort(key=lambda x:-len(x))
+        return result
+
+    def typical(self,cid):
+        result = dict()
+        result["cid"] = cid
+        result["comments"] = []
+        result["price_dist"] = self.cluster_util.clusters[int(cid)][1][0]
+        result["time_dist"] = self.cluster_util.clusters[int(cid)][1][1]
         return result
 
 class DataLoader():
@@ -274,11 +287,12 @@ def normalize(arr):
 
 class ClusterUtil():
     def __init__(self) -> None:
-        self.clusters = []
+        self.clusters = [] # [ [uid1,uid2,...],[ [price_center1,...],[time_center1,...] ] ]
         self.data = []
         self.k = 8
         self.look_up = dict()
         self.uid_index = []
+        self.centers = []
 
     def load_data(self, users, thr=10):
         '''按各个用户拼接用于kmeans的特征'''
@@ -298,15 +312,18 @@ class ClusterUtil():
         print("Applying K-Means clustering with K value", k, '...')
         kmeans = KMeans(n_clusters=k, random_state=0).fit(self.data)
 
-        self.clusters = [[] for _ in range(k)]
+        self.clusters = [[ [],[] ] for _ in range(k)]
         for uid, cid in zip(self.uid_index, kmeans.labels_):
-            self.clusters[cid].append(uid)
-
-        self.clusters.sort(key=lambda x: -len(x))
+            self.clusters[cid][0].append(uid)
+        for cid,c in enumerate(kmeans.cluster_centers_):
+            self.clusters[cid][1].append( list(c[:5]) )
+            self.clusters[cid][1].append( list(c[5:]) )
+        
+        self.clusters.sort(key=lambda x: -len(x[0]))
 
         for cid, cluster in enumerate(self.clusters):
-            print("Cluster", cid, len(cluster))
-            for uid in cluster:
+            print("Cluster", cid, len(cluster[0]),"typical:",cluster[1])
+            for uid in cluster[0]:
                 self.look_up[uid] = cid
         print("Done.")
 
