@@ -180,7 +180,7 @@ class DataLoader():
         读取csv文件
         key_col:索引所在列
         '''
-        f_handle = open(fn, "r")
+        f_handle = open(fn, "r", encoding="utf-8")
         csv_reader = csv.reader(f_handle)
         csv_row_count = 0
         print("Loading", fn, '...')

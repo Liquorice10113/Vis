@@ -25,9 +25,10 @@ option = {
 	},
 	bmap: {
 		center: [104.741722, 31.46402],
-		zoom: 12,
+		zoom: 14,
 		roam: true,
-		enableMapClick: false
+		enableMapClick: false,
+		mapStyle: {style:'hardedge'}
 	},
 	visualMap: {
 		show: false,

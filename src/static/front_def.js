@@ -126,7 +126,7 @@ function show_user_detail(uid) {
 		"/query?type=user_detail&uid=" + uid,
 		function(data) {
 			$("#u_text_title").text("UID:" + uid)
-			$("#u_subtxt").text("In cluster " + data['cid'] + ', ' + data['comments'].length + ' comments.')
+			$("#u_subtxt").text("位于 cluster " + data['cid'] + ', 共有' + data['comments'].length + '条评论.')
 			console.log(data['comments'])
 			$("#u_comments_view").html("")
 			$.each(
@@ -286,7 +286,7 @@ function select_cluster(cid_) {
 					$("#user_list").append(node)
 				}
 			);
-				$("#u_count").text(data.length+" users in this cluster.")
+				$("#u_count").text("在此cluster中有"+data.length+"用户.")
 		}
 	)
 }
@@ -298,13 +298,13 @@ function unselect_cluser(){
 	}
 	cid = ""
 	$("#user_list").html("")
-	$("#u_count").text("Please select a cluster.")
+	$("#u_count").text("选择一个cluster.")
 }
 
 function show_typical(){
 	console.log(cid)
 	if(!cid){
-		alert("Select a cluster first!")
+		alert("选择一个cluster!")
 		return
 	}
 	cuid = ""

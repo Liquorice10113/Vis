@@ -11,7 +11,7 @@
 		<script src="/static/jquery-3.6.0.js"></script>
 		<script src="/static/echarts.js"></script>
 		<script src="/static/bmap.js"></script>
-		<script src="http://api.map.baidu.com/api?v=2.0&ak=KWbLsI5oSCdNhiN0UW6MO48Yda4qXgS1"></script>
+		<script src="https://api.map.baidu.com/api?v=3.0&ak=KWbLsI5oSCdNhiN0UW6MO48Yda4qXgS1"></script>
 		<script src="/static/ion.rangeSlider.js"></script>
 		<link rel="stylesheet" href="/static/front.css" />
 		<link rel="stylesheet" href="/static/ion.rangeSlider.css" />
@@ -70,12 +70,12 @@
 			for(i=0;i<16;i++) 
 				$("#cluster_btn_container").append($('<div class="cluster_btn" onclick="select_cluster('+i+')">'+i+'</div>'));
 			</script>
-			<div id="user_promote" style="position: relative;left: 20px;top: 20px;height: 20px">User: 
+			<div id="user_promote" style="position: relative;left: 20px;top: 20px;height: 20px">用户: 
 			<div class="user_label" style="left: 250px;top:-5px;" onclick="show_typical()">typical</div>
 			</div>
 			<div id="user_list">
 			</div>
-			<div id="u_count"> Please select a cluster. </div>
+			<div id="u_count"> 选择一个cluster. </div>
 		</div>
 		<div id="word_cloud_view">
 			<img src="/wordcloud" id="wc_img" />
