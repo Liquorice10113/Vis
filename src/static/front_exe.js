@@ -28,7 +28,7 @@ option = {
 		zoom: 14,
 		roam: true,
 		enableMapClick: false,
-		mapStyle: {style:'hardedge'}
+		mapStyle: {style:'bluish'}
 	},
 	visualMap: {
 		show: false,
