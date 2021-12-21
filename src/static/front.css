@@ -9,7 +9,7 @@ body {
 #title {
 	position: fixed;
 	top: 20px;
-	left: 20px;
+	left: 40px;
 	font-size: 25px;
 	font-family: "agency fb";
 	color: #333;
@@ -19,13 +19,13 @@ body {
 
 #left_cover {
 	position: fixed;
-	height: 945px;
-	width: 390px;
+	height: 120px;
+	width: 370px;
 	top: 10px;
-	left: 10px;
+	left: 20px;
 	border-radius: 10px;
 	box-shadow: #999 1px 1px 4px;
-	background-color: rgba(255, 255, 255, 0.7);
+	background-color: rgba(255, 255, 255, 1);
 }
 
 .select {
@@ -50,11 +50,11 @@ body {
 }
 
 #select_shops_analysis {
-	left: 20px;
+	left: 30px;
 }
 
 #select_shops_heat {
-	left: 110px;
+	left: 120px;
 	top: 90px;
 	width: 30px;
 	height: 30px;
@@ -65,7 +65,7 @@ body {
 
 #select_users_analysis {
 
-	left: 310px;
+	left: 300px;
 }
 
 
