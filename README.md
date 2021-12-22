@@ -1,6 +1,6 @@
 # 餐饮类消费数据的可视化分析系统
 
-可视化小组作业，基于Flask,jquery,echarts,sklearn  环境` Ubuntu 20 LTS ` , ` python 3.8 ` ,分辨率1920x1080,未适配其他分辨率。 
+可视化小组作业，基于Flask,jquery,echarts,sklearn  环境` Ubuntu 20 LTS ` , ` python 3.8 ` ,分辨率1920pxx1080px,未适配其他分辨率。 
 
 
 依赖安装：
@@ -15,15 +15,16 @@ pip3 install sklearn
 cd Vis/src
 python3 server.py
 ```
-浏览器输入` http://127.0.0.1:5000 `
+浏览器访问` http://127.0.0.1:5000 `
 
+<div align="center">餐馆分析</div> 
 
 ![wip](res/wip.png)
 
+<div align="center">用户分析</div> 
 
 ![wip2](res/wip2.png)
 
-开发中
 
 使用到的组件：
 [Ion.RangeSlider](https://github.com/IonDen/ion.rangeSlider)
